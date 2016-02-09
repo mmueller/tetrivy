@@ -1,0 +1,74 @@
+#:kivy 1.9.1
+
+<GameScreen>
+    board: board_id
+    sidebar: sidebar_id
+    orientation: 'horizontal'
+    padding: 10
+    spacing: 10
+    canvas.before:
+        Color:
+            rgba: 0.2, 0.2, 0.2, 1
+        Rectangle:
+            pos: self.pos
+            size: self.size
+
+    Board:
+        id: board_id
+        size_hint_x: 0.7
+
+    Sidebar:
+        id: sidebar_id
+        score: score_id
+        level: level_id
+        lines_cleared: lines_cleared_id
+        next_piece: next_piece_id
+        start_button: start_button_id
+        size_hint_x: 0.3
+        orientation: 'vertical'
+
+        Label:
+            bold: True
+            text: 'Score'
+            size_hint_y: 1
+
+        Label:
+            id: score_id
+            text: '0'
+            size_hint_y: 1
+
+        Label:
+            bold: True
+            text: 'Level'
+            size_hint_y: 1
+
+        Label:
+            id: level_id
+            text: '0'
+            size_hint_y: 1
+
+        Label:
+            bold: True
+            text: 'Lines Cleared'
+            size_hint_y: 1
+
+        Label:
+            id: lines_cleared_id
+            text: '0'
+            size_hint_y: 1
+
+        Label:
+            bold: True
+            text: 'Next'
+            size_hint_y: 1
+
+        Widget:
+            id: next_piece_id
+            size_hint_y: 3
+
+        Button:
+            id: start_button_id
+            background_color: (0, .5, 1.5, 1)
+            on_press: root.start_game()
+            text: 'Start'
+            size_hint_y: 2
