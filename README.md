@@ -12,4 +12,5 @@ figured I'd share it for anyone who wants to see an example of a basic Kivy
 game.
 
 If you actually want it, here's the
-[Android APK](http://subfocal.net/~mike/Tetrivy-0.1-debug.apk).
+[Android APK](http://subfocal.net/~mike/Tetrivy-0.1-debug.apk)
+(MD5: b0cd66b06c74297ee61f69bbebfa247e).
