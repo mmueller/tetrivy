@@ -7,6 +7,7 @@ from kivy.graphics import Color, Line, Rectangle
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.widget import Widget
 from kivy.properties import ObjectProperty, NumericProperty
+from kivy.core.window import Window
 
 from game import *
 
@@ -72,6 +73,8 @@ class Board(Widget):
         self.bind(pos=self.redraw)
         self.bind(size=self.redraw)
         self.game_state = None
+        self._keyboard = Window.request_keyboard(self._keyboard_closed, self)
+        self._keyboard.bind(on_key_down=self._on_keyboard_down)
 
     def set_game_state(self, game_state):
         self.game_state = game_state
@@ -88,6 +91,27 @@ class Board(Widget):
         else:
             self.game_state.rotate()
         self.redraw()
+
+    # Based on: https://stackoverflow.com/questions/17280341/how-do-you-check-for-keyboard-events-with-kivy#17296090
+    def _keyboard_closed(self):
+        self._keyboard.unbind(on_key_down=self._on_keyboard_down)
+        self._keyboard = None
+
+    def _on_keyboard_down(self, keyboard, keycode, text, modifiers):
+        def is_btns(*btns):
+            for btn in btns:
+                if keycode[1] == btn:
+                    return True
+            return False
+
+        if is_btns("w", "up"):
+            self.game_state.rotate()
+        elif is_btns("a", "left"):
+            self.game_state.move_left()
+        elif is_btns("s", "down"):
+            self.game_state.move_down()
+        elif is_btns("d", "right"):
+            self.game_state.move_right()
 
     def redraw(self, *args):
         self.canvas.before.clear()
